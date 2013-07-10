@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Gittake::VERSION
   spec.authors       = ["Jordan Goldstein"]
   spec.email         = ["mrjordangoldstein@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Command line tools for git}
+  spec.summary       = %q{Fancy git tools!}
   spec.homepage      = ""
   spec.license       = "MIT"
 

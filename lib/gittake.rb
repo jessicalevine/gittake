@@ -9,8 +9,8 @@ require "rainbow"
 
 module Gittake
   class Blame
-    def initialize(repopath, blamepath)
-      @repo = ::Grit::Repo.new(repopath)
+    def initialize(blamepath)
+      @repo = ::Grit::Repo.new(Dir.pwd)
       @blame = ::Grit::Blame.new(@repo, blamepath, @repo.commits.first)
       @dates = @blame.lines.map(&:commit).map(&:committed_date)
       @most_recent = @dates.max
@@ -42,5 +42,5 @@ module Gittake
   end
 end
 
-app = Gittake::Blame.new ARGV[0], ARGV[1]
+app = Gittake::Blame.new ARGV[0]
 app.graph_blame

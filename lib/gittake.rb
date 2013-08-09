@@ -21,7 +21,8 @@ module Gittake
 
   submitted = ARGV.slice(1, ARGV.size)
   declared = {
-    :blocks => "-b"
+    :blocks => "-b",
+    :dates  => "-d"
   }
 
   Opts.load(declared, submitted)
@@ -86,6 +87,9 @@ module Gittake
           else
             string = string.prepend "|  "
           end
+        end
+        if Opts.include?(:dates)
+          string = string.prepend "#{line.commit.date} "
         end
         put_color_line(string)
       end

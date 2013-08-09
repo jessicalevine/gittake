@@ -1,3 +1,6 @@
+# Warning
+This was developed initially as a prototype, then rapidly hacked on to make it in time for a demo. The code inside is actually awful and needs refactoring. There is no documentation. I promise, that all is coming! Check back in a while :)
+
 # Gittake
 
 TODO: Write a gem description

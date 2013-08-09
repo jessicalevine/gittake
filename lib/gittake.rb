@@ -8,6 +8,28 @@ require "colormath"
 require "rainbow"
 
 module Gittake
+
+  class Opts
+    def self.load(declared, submitted)
+      @@declared, @@submitted = declared, submitted
+    end
+
+    def self.include?(opt_name)
+      @@submitted.include? @@declared[opt_name]
+    end
+  end
+
+  submitted = ARGV.slice(1, ARGV.size)
+  declared = {
+    :blocks => "-b"
+  }
+
+  Opts.load(declared, submitted)
+
+  def opt?(opt_name)
+    opts.include? OPTIONS[opt_name]
+  end
+
   class Blame
     attr_accessor :most_recent, :age
     def initialize(blamepath)
@@ -56,7 +78,7 @@ module Gittake
     def print
       @lines.each_with_index do |line, ind|
         string = line.line
-        if @@OPTS[:blocks]
+        if Opts.include?(:blocks)
           if @lines.size == 1
             string = string.prepend ".  "
           elsif ind == 0 || (ind == (@lines.size - 1))
@@ -106,10 +128,6 @@ module Gittake
     end
   end
 end
-
-@@OPTS = {
-  :blocks => ARGV[1]
-}
 
 app = Gittake::Blame.new ARGV[0]
 app.graph_blame

@@ -6,6 +6,7 @@ require "gittake/version"
 require "grit"
 require "colormath"
 require "rainbow"
+require "set"
 
 module Gittake
 
@@ -22,7 +23,8 @@ module Gittake
   submitted = ARGV.slice(1, ARGV.size)
   declared = {
     :blocks => "-b",
-    :dates  => "-d"
+    :dates  => "-d",
+    :authors => "-a"
   }
 
   Opts.load(declared, submitted)
@@ -52,6 +54,15 @@ module Gittake
         end
       end
       blocks.each(&:print)
+      if Opts.include?(:authors)
+        authors = Set.new
+        @blame.lines.each do |l|
+          authors << l.commit.author.name
+        end 
+        puts "--"
+        puts "Authors: #{authors.to_a.sort_by(&:downcase).join ", "}"
+        puts "--"
+      end
       # @blame.lines.each do |line|
       #   date = line.commit.date
       #   cm = rg_scale(age_rating(date))
